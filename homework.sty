@@ -1,0 +1,96 @@
+%%
+%% This is file `homework.sty.'
+%% 
+%%% ====================================================================
+%%% @LaTeX-file{
+%%%   version   = "1.0",
+%%%   date      = "2004/1/21",
+%%%   time      = "10:29:42 EST",
+%%%   author    = "Jon Breitenbucher",
+%%%   address   = "Dr. Jon Breitenbucher,
+%%%              Department of Mathematics and Computer Science,
+%%%              The College of Wooster,
+%%%              Wooster, Ohio 44691,
+%%%              USA",
+%%%   telephone = "330-263-2207,
+%%%   email     = "jbreitenbuch@wooster.edu",
+%%%   codetable = "ISO/ASCII",
+%%%   keywords  = "latex, homework, solutions",
+%%%   supported = "no",
+%%%   abstract  = "This is a \LaTeX{} package that provides a command
+%%%                for producing a homework solution environment.",
+%%% }
+%%% ====================================================================
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+\ProvidesPackage{homework}[2005/1/26 v1.3]
+%the palatino option typesets the thesis in Palatino, the College font.- JB
+\newif\if@palatino
+\expandafter\def\csname test@\jobname\endcsname{test}%
+\def\t@st{test}%
+\ifx\test@palatino\t@st\@palatinotrue\else\@palatinofalse\fi
+\DeclareOption{palatino}{\@palatinotrue}
+\ProcessOptions
+\RequirePackage{ifpdf}
+\RequirePackage[letterpaper,marginparwidth=.6in,hmargin={1in,1in},includehead,includefoot,top=1in,bottom=1in]{geometry}
+\ifpdf
+\RequirePackage[pdftex]{graphicx}
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\if@palatino
+\RequirePackage[T1]{fontenc}
+\RequirePackage{pxfonts}
+\fi
+\else
+\RequirePackage[dvips]{graphicx}
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\if@palatino
+\RequirePackage[T1]{fontenc}
+\RequirePackage{pxfonts}
+\fi
+\fi
+\newcounter{sol}
+\newenvironment{solution}[1]
+{\begin{sloppypar}\stepcounter{sol}\noindent{\large\bfseries Solution %\arabic{sol}
+} {\bfseries (#1)}
+\begin{quote}}
+{\end{quote}\end{sloppypar}}
+
+%\newlength{\oddsidemarginlength}
+%\newlength{\topmarginlength}
+%
+%\hoffset=0pt
+%\voffset=0pt
+%
+%\textwidth = 6.5 in
+%\textheight = 9 in
+%
+%\setlength{\oddsidemarginlength}{(\paperwidth-\textwidth)/2-1in}
+%\setlength{\topmarginlength}{(\paperheight-\textheight)/2-1in}
+%
+%\oddsidemargin=\oddsidemarginlength
+%\evensidemargin=\oddsidemargin
+%\topmargin=\topmarginlength
+\headsep=0pt
+\parskip = 0.2in
+\parindent = 0.0in
+
+\newcommand{\class}[1]{\def\classdata{#1}}
+\def\classdata{\relax}
+\newcommand{\chap}[1]{\def\chapdata{#1}}
+\def\chapdata{\relax}
+\newcommand{\name}[1]{\def\namdata{#1}}
+\def\namdata{\relax}
+\newcommand{\prof}[1]{\def\profdata{#1}}
+\def\profdata{\relax}
+\newcommand{\hwnum}[1]{\def\hwtype{#1}}
+\def\hwtype{\relax}
+\def\namedata{\scshape{\bfseries \large Name}: \namdata\\
+              \scshape{\bfseries \large Date}: \@date}
+\def\top{\parbox[t]{4in}{\scshape{\bfseries\large\classdata} \\ \scshape{\bfseries\large Professor \profdata}\\ \scshape{\bfseries\large Homework} \hwtype\\ \scshape{\bfseries\large Chapter} \chapdata}
+        \hfill
+        \parbox[t]{2.5in}{\normalsize \namedata}}
+\endinput
+%%
+%% End of file `homework.sty'.
